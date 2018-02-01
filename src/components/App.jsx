@@ -1,12 +1,14 @@
 class App extends React.Component {
   constructor(props) {
-    super(props);
-    
+    super(props);    
     this.state = {
       playerVideo: window.exampleVideoData[0], 
       allVideos: window.exampleVideoData,
       seachText: 'aaaaa'
     };
+    this.changeSearchText = this.changeSearchText.bind(this);
+    this.youtubeSearch = _.debounce(this.youtubeSearch.bind(this), 1000); //debouncer
+    this.onTitleClick = this.onTitleClick.bind(this);
   }  
 
   onTitleClick(video) {
@@ -23,10 +25,10 @@ class App extends React.Component {
   }
   youtubeSearch() {
     var searchOptions = {};
-    searchOptions.q = this.state.searchText;
-    searchOptions.maxResults = 5;
+    searchOptions.query = this.state.searchText;
+    searchOptions.max = 5;
     searchOptions.key = window.YOUTUBE_API_KEY; 
-    searchYouTube(searchOptions, function() {
+    this.props.searchYouTube(searchOptions, function() {
       this.setState({allVideos: data});
 
     });
@@ -37,7 +39,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search changeSearchText={this.changeSearchText.bind(this)} searchButtonClick={this.youtubeSearch.bind(this)}/>
+            <Search changeSearchText={this.changeSearchText} searchButtonClick={this.youtubeSearch}/>
           </div>
         </nav>
         <div className="row">
@@ -45,7 +47,7 @@ class App extends React.Component {
             <VideoPlayer video={this.state.playerVideo}/>
           </div>
           <div className="col-md-5">
-            <VideoList click={this.onTitleClick.bind(this)} videos={this.state.allVideos} />
+            <VideoList click={this.onTitleClick} videos={this.state.allVideos} />
           </div>
         </div>
       </div>

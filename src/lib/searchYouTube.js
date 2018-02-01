@@ -3,12 +3,20 @@ var searchYouTube = (options, callback) => {
   $.ajax({
     type: 'GET',
     url: 'https://www.googleapis.com/youtube/v3/search',
-    data: options,
+    data: {
+          maxResults: options.max,
+                   q: options.query, 
+                 key: options.key, 
+                part: 'snippet', 
+     videoEmbeddable: true, 
+                type: 'video'},
+
     success: function(data) {
-      console.log('success!!');
+      console.log('success!!', data);
+      callback(data);
     },
     error: function(data) {
-      console.log('nope');
+      console.log('nope', data);
     }
   });
 };
