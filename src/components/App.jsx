@@ -1,15 +1,18 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       playerVideo: this.props.video[0], 
       allVideos: this.props.video
     };
-  }
-  onVideoTitleClick() {
-    this.setState({
-      playerVideo:
-    })
+  }  
+
+  onTitleClick(video) {
+    console.log(video);
+    // this.setState({
+    //   playerVideo: video
+    // });
   }
   
   render(props) {
@@ -25,7 +28,7 @@ class App extends React.Component {
             <VideoPlayer video={this.state.playerVideo}/>
           </div>
           <div className="col-md-5">
-            <VideoList videos={this.state.allVideos} />
+            <VideoList click={this.onTitleClick} videos={this.state.allVideos} />
           </div>
         </div>
       </div>
@@ -39,8 +42,8 @@ window.App = App;
 
 
 
- onListItemClick() {
-    this.setState({
-      done: !this.state.done
-    });
-  }
+ // onListItemClick() {
+ //    this.setState({
+ //      done: !this.state.done
+ //    });
+ //  }
