@@ -4,26 +4,40 @@ class App extends React.Component {
     
     this.state = {
       playerVideo: window.exampleVideoData[0], 
-      allVideos: window.exampleVideoData
+      allVideos: window.exampleVideoData,
+      seachText: 'aaaaa'
     };
   }  
 
   onTitleClick(video) {
-    console.log(video);
     this.setState({
       playerVideo: video
     });
   }
+  
+  changeSearchText(searchInput) {
+    console.log(searchInput.target.value);
+    this.setState({
+      searchText: searchInput.target.value
+    });
+  }
+  youtubeSearch() {
+    var searchOptions = {};
+    searchOptions.q = this.state.searchText;
+    searchOptions.maxResults = 5;
+    searchOptions.key = window.YOUTUBE_API_KEY; 
+    searchYouTube(searchOptions, function() {
+      this.setState({allVideos: data});
 
-  
-  
+    });
+  }
+
   render(props) {
-    console.log(this.props);
     return (
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search />
+            <Search changeSearchText={this.changeSearchText.bind(this)} searchButtonClick={this.youtubeSearch.bind(this)}/>
           </div>
         </nav>
         <div className="row">
