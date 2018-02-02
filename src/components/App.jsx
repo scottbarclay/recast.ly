@@ -9,6 +9,7 @@ class App extends React.Component {
     this.changeSearchText = this.changeSearchText.bind(this);
     this.youtubeSearch = _.debounce(this.youtubeSearch.bind(this), 1000); //debouncer
     this.onTitleClick = this.onTitleClick.bind(this);
+    this.callYouTube = this.callYouTube.bind(this);
   }  
 
   onTitleClick(video) {
@@ -16,6 +17,16 @@ class App extends React.Component {
       playerVideo: video
     });
   }
+
+  callYouTube(data) {
+    console.log(data);
+    this.setState({
+      allVideos: data, 
+      playerVideo: data[0]
+    });
+    console.log(this.state.allVideos);
+
+  }  
   
   changeSearchText(searchInput) {
     console.log(searchInput.target.value);
@@ -28,10 +39,7 @@ class App extends React.Component {
     searchOptions.query = this.state.searchText;
     searchOptions.max = 5;
     searchOptions.key = window.YOUTUBE_API_KEY; 
-    this.props.searchYouTube(searchOptions, function() {
-      this.setState({allVideos: data});
-
-    });
+    this.props.searchYouTube(searchOptions, this.callYouTube);
   }
 
   render(props) {
