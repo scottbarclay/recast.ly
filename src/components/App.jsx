@@ -19,17 +19,13 @@ class App extends React.Component {
   }
 
   callYouTube(data) {
-    console.log(data);
     this.setState({
       allVideos: data, 
       playerVideo: data[0]
     });
-    console.log(this.state.allVideos);
-
   }  
   
   changeSearchText(searchInput) {
-    console.log(searchInput.target.value);
     this.setState({
       searchText: searchInput.target.value
     });
@@ -66,11 +62,3 @@ class App extends React.Component {
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined
 window.App = App;
-
-
-
- // onListItemClick() {
- //    this.setState({
- //      done: !this.state.done
- //    });
- //  }

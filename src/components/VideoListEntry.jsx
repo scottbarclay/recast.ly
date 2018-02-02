@@ -1,4 +1,4 @@
-var VideoListEntry = (props) => (
+var VideoListEntry = (props) => ( // culls the data for each video to present in a list entry including the click listener
   <div className="video-list-entry media">
     <div className="media-left media-middle">
       <img className="media-object" src={props.video.snippet.thumbnails.default.url} alt="" />
